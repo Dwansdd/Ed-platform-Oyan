@@ -2,6 +2,8 @@ from django.shortcuts import render
 import requests
 from django.conf import settings
 from .models import Articles, Author, Genre
+from django.http import JsonResponse
+from .serializers import ArticleSerializer
 # прописываем логику в обьект request 
 def index(request):
     num_articles=Articles.objects.all().count()
@@ -12,6 +14,7 @@ def index(request):
         'index.html',
         context={'num_articles':num_articles,'num_authors':num_authors},
     )
+
 # рендер оборачивает несколько вызовов в один и ищет файл куда будет вставялтся шаблон
 def article_view(request):
     API_KEY=settings.ARTICLE_API_KEY
@@ -19,10 +22,8 @@ def article_view(request):
     url = f"https://newsapi.org/v2/everything?q={query}&from=2026-01-21&language=kk&sortBy=popularity&apiKey={API_KEY}"
 
     response=requests.get(url)
-    print("JSON ответа:", response.json())
-    articles=response.json().get("articles",[])
-    return render(
-        request,
-        'article.html',
-        context={"articles":articles}
-    )
+    if response.status_code==200:
+        data=response.json().get("articles",[])
+        serializer=ArticleSerializer(data=data, many=True)
+        if  serializer.is_valid:
+            serializer.save()
