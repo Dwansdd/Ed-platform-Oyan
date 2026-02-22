@@ -1,5 +1,5 @@
+from catalog.models import Articles
 from rest_framework import serializers
-from oyan.catalog.models import Articles
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:

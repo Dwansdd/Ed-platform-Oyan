@@ -3,7 +3,8 @@ import requests
 from django.conf import settings
 from .models import Articles, Author, Genre
 from django.http import JsonResponse
-from .serializers import ArticleSerializer
+from catalog.models import Articles
+from catalog.serializers.article import ArticleSerializer
 # прописываем логику в обьект request 
 def index(request):
     num_articles=Articles.objects.all().count()
