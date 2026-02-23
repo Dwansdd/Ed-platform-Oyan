@@ -21,16 +21,34 @@ def index(request):
 
 # рендер оборачивает несколько вызовов в один и ищет файл куда будет вставялтся шаблон
 def article_view_api(request):
-    API_KEY=settings.ARTICLE_API_KEY
-    query = request.GET.get('q', '')
-    url = f"https://newsapi.org/v2/everything?q={query}&from=2026-01-21&language=kk&sortBy=popularity&apiKey={API_KEY}"
-
-    response=requests.get(url)
-    if response.status_code==200:
-        data=response.json().get("articles",[])
-        serializer=ArticleSerializer(data=data, many=True)
-        if  serializer.is_valid:
-            serializer.save()
+    # API_KEY=settings.ARTICLE_API_KEY
+    # query = request.GET.get('q', '')
+    articles = [
+        "Алматы",
+        "Астана",
+        "Қазақстан",
+        "Шымкент"
+    ]
+    headers = {"User-Agent": "MyKazakhApp/1.0 (example@example.com)"}
+    for title in articles:
+        url = f"https://kk.wikipedia.org/api/rest_v1/page/summary/{title}"
+        response=requests.get(url,headers=headers)
+        wiki_data = response.json()
+        
+        data = {
+            "title": wiki_data.get("title"),
+            "description": wiki_data.get("extract"),
+            "content": wiki_data.get("extract"),
+            "image": wiki_data.get("thumbnail", {}).get("source"),
+            "source_url": wiki_data.get("content_urls", {})
+                    .get("desktop", {})
+                    .get("page"),
+}
+        if response.status_code==200:
+            data=response.json()
+            serializer=ArticleSerializer(data=data)
+            if  serializer.is_valid():
+                serializer.save()
 
 
 class archive_articleslist(generic.ListView):

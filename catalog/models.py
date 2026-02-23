@@ -19,12 +19,13 @@ class Genre(models.Model):
 
 class Articles(models.Model):
     title=models.CharField(max_length=200)
-    description=models.TextField()
+    description=models.TextField(null=True, blank=True)
     content = models.TextField(default='')
-    image=models.ImageField(upload_to='articles/', blank=True, null=True)
+    image = models.URLField(blank=True, null=True)
     release=models.DateTimeField(blank=True, null=True)
-    author=models.ForeignKey("Author", on_delete=models.CASCADE)
-    genre=models.ForeignKey("Genre", on_delete=models.CASCADE)
+    author=models.ForeignKey("Author", on_delete=models.CASCADE,null=True, blank=True)
+    genre=models.ForeignKey("Genre", on_delete=models.CASCADE,null=True, blank=True)
+    source_url = models.URLField(max_length=500,blank=True, null=True)
 
     def __str__(self):
         return self.title
