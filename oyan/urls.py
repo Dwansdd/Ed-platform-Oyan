@@ -22,7 +22,7 @@ from catalog import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('allarticles/', views.article_view, name='article_view')
+    path('allarticles/', views.archive_articleslist.as_view(), name='archive_articles'),
     
     # path('', index_page)
 ]
