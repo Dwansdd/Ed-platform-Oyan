@@ -2,10 +2,10 @@
 {% block content %}
     <h1>Article Archive</h1>
 
-    {% if article_list %}
+    {% if articles_list %}
     <ul>
 
-      {% for article in article_list %}
+      {% for article in articles_list %}
       <li>
         <a href="{{ article.get_absolute_url }}">{{ article.title }}</a> ({{article.author}})
       </li>

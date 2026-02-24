@@ -7,11 +7,12 @@ from catalog.models import Articles
 from catalog.serializers.article import ArticleSerializer
 from django.views.generic.detail import DetailView
 from django.views import generic
+from catalog.models import Articles
+Articles.objects.all()
 # прописываем логику в обьект request 
 def index(request):
     num_articles=Articles.objects.all().count()
     num_authors=Author.objects.count()
-    articles=Articles.objects.all().count()
 # передаем в шаблон в контенте
     return render(
         request,
@@ -54,6 +55,12 @@ def article_view_api(request):
 class archive_articleslist(generic.ListView):
     model=Articles
     template_name = 'article.html'
+    context_object_name = "articles_list"
+
+class ArticleDetailView(generic.DetailView):
+    model=Articles
+    template_name='article_detail.html'
+    context_object_name = "article"
 # def archive_articleslist(request):
 #     articles=Articles.objects.all()
 #     return render(
