@@ -5,3 +5,4 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model=Articles
         fields = '__all__'
+        extra_kwargs = {'author': {'required': False}, 'genre': {'required': False}}

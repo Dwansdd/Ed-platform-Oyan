@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('allarticles/', views.archive_articleslist.as_view(), name='archive_articles'),
-    path('article/<int:pk>/', views.ArticleDetailView.as_view(), name='article_detail')
+    path('article/<int:pk>/', views.ArticleDetailView.as_view(), name='article_detail'),
+    path('allarticles/load/',views.article_view_api, name='article_api'),
     # path('', index_page)
 ]
