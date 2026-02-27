@@ -25,5 +25,6 @@ urlpatterns = [
     path('allarticles/', views.archive_articleslist.as_view(), name='archive_articles'),
     path('article/<int:pk>/', views.ArticleDetailView.as_view(), name='article_detail'),
     path('allarticles/load/',views.article_view_api, name='article_api'),
+    path('accounts/', include('django.contrib.auth.urls')),
     # path('', index_page)
 ]

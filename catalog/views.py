@@ -9,6 +9,8 @@ from django.views.generic.detail import DetailView
 from django.views import generic
 from catalog.models import Articles
 from requests.utils import quote
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 # прописываем логику в обьект request 
 def index(request):
     num_articles=Articles.objects.all().count()
@@ -65,7 +67,12 @@ class ArticleDetailView(generic.DetailView):
     template_name='article_detail.html'
     context_object_name = "article"
 
+# user=User.objects.create_user('myusername', 'myemail@crazymail.com', 'mypassword')
 
+# user.first_name='Daneliya'
+# user.last_name='Duima'
+
+# user.save()
 
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)

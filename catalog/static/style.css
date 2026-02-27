@@ -1,0 +1,24 @@
+.sidebar-nav{
+    position: fixed;
+    background-color: #222831;
+    box-sizing: border-box;
+    height: 100vh;  
+    width: 200px;    
+    padding: 20px;
+}
+
+
+.card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    row-gap: 50px;
+}
+
+
+.card body text{
+    color: beige;
+}
+.card title a:hover{
+    text-decoration: none;
+}
